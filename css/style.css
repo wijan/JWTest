@@ -270,10 +270,13 @@ a{
 }
 
 /* Cartas */
-
+.cardButtons{
+    display: inline;
+}
 
 .btn{
     display: inline-block;
+    vertical-align: top;
     text-align: center;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
@@ -343,6 +346,23 @@ a{
 
 select option[disabled] {
     display: none;
+}
+
+.toggles{
+    display: inline-block;
+    user-select: none;
+    padding:0.5em;
+}
+
+.toggle{
+    display: inline-block;
+    border: 1px solid black;
+    padding:0.5em;
+    margin-right:1em;
+}
+
+.toggle label{
+    padding-right:1em;
 }
 
 .cardButton.buscador{
