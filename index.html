@@ -98,8 +98,14 @@
 						Restaurar
 					</div>
 				</div>
+				<div class="toggles">
+					<div class="toggle" v-for="cargo in cargos" @click="filtroToggle(cargo.value)">
+						<i :id="cargo.idIcono" class="far fa-square"></i>
+						<span>{{cargo.text}}</span>
+					</div>
+				</div>
 				<div class="wololo">
-					<select id="cargoFiltro" v-model="cargoFiltro">
+					<select id="cargoFiltro" v-model="cargoFiltro" multiple>
 						<option selected="selected" value="" disabled="disabled">
 							Selecciona...
 						</option>
@@ -206,8 +212,8 @@
 				.once('value')
 				.then((snapshot) =>{
 					Object.entries(snapshot.val()).map(function(key, index){
-						var itemFB = key[1];
-						var hermano = {
+						let itemFB = key[1];
+						let hermano = {
 							nombre: isNull(itemFB.nombre,""),
 							segundoNombre: isNull(itemFB.segundoNombre,""),
 							apellido1: isNull(itemFB.apellido1,""),
@@ -218,31 +224,32 @@
 							direccion: isNull(itemFB.direccion, noIa),
 							email: isNull(itemFB.email, noIo),
 							imagen: isNull(itemFB.imagen, imagenDef),
-							cargo: isNull(itemFB.cargo, "Publicador")
+							cargos: isNull(itemFB.cargos, [3])
 						};
 						hermano.nombreCompleto = [hermano.nombre,hermano.segundoNombre,hermano.apellido1, hermano.apellido2].join(" ").replace("  ", " ");
 						arrayHermanos.push(hermano);
 					})
 				});
+			let arrayCargos = new Array();
+			db.ref('/cargos')
+				.once('value')
+				.then((snapshot) => {
+					Object.entries(snapshot.val()).map(function(key, index){
+						let cargo = {
+							value: parseInt(key[0]),
+							text: key[1] ,
+							idIcono: 'iconoFiltro' + key[0].toString()
+						};
+						arrayCargos.push(cargo);
+					})
+				})
 			this.hermanos = arrayHermanos;
+			this.cargos = arrayCargos;
 		},
 		data:{
 			hermanos:[],
-			cargos:[
-				{
-					"text":"Anciano",
-					"value": "Anciano"
-				},
-				{
-					"text":"Siervo Ministerial",
-					"value": "Siervo Ministerial"
-				},
-				{
-					"text":"Publicador",
-					"value": "Publicador"
-				}
-			],
-			cargoFiltro: "",
+			cargos:[],
+			cargoFiltro: [""],
 			tipoPredicaciones: ["Precursor Regular", "Precursor Especial", "Publicador"],
 			tipoPredicacionFiltro: "",
 			buscador: "",
@@ -252,15 +259,29 @@
 				return this.hermanos.filter(hermano =>{
 					let nombre = sinAcentos(hermano.nombreCompleto).toUpperCase();
 					let buscador = sinAcentos(this.buscador).toUpperCase();
-					let filtroCargo = this.cargoFiltro != "" ? hermano.cargo == this.cargoFiltro : true;
+					let filtroCargo = !(this.cargoFiltro.length == 1 && this.cargoFiltro[0] == "") ? hermano.cargos.some(r => this.cargoFiltro.indexOf(r) >= 0) : true;
+					
 					return nombre.includes(buscador) && filtroCargo;
 				})
 			}
 		},
 		methods:{
 			restaurar: function(){
-				this.cargoFiltro = "";
+				this.cargoFiltro = [""];
 				this.buscador = "";
+			},
+			filtroToggle(valorCargo){
+				debugger;
+				let posicionCargo = this.cargoFiltro.indexOf(valorCargo);
+				let iconoFiltro = document.querySelector('#iconoFiltro' + valorCargo.toString());
+				iconoFiltro.classList.toggle('fa-square');
+				iconoFiltro.classList.toggle('fa-check-square');
+				if(posicionCargo >= 0){
+					this.cargoFiltro.splice(posicionCargo, 1);
+				}
+				else{
+					this.cargoFiltro.push(valorCargo);
+				}
 			}
 		}
 	});
@@ -328,7 +349,6 @@
 	};
 
 	cardsList.addEventListener('click', function(e){
-		debugger;
 		if(e.target && e.target.classList.contains('close')){
 			e.target.closest('.card').classList.toggle('closing');
 		}
