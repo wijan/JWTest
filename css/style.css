@@ -270,13 +270,117 @@ a{
 }
 
 /* Cartas */
+
+
+.btn{
+    display: inline-block;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    width:6em;
+    height:3em;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    border:1px solid black;
+}
+
+.btn:after{
+    content: "";
+    max-width:25em;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    border-radius: 1em;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.btn:active:after {
+    border-radius: 1em;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    max-width:25em;
+    transition: 0s
+}
+
+.btnText{
+    margin-top: 1em;
+}
+
+.btn-ok{
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-ok:after{
+    content: "";
+    background: #b1deb4;
+}
+
+.btn-danger{
+    background: #e94343;
+    color: white;
+}
+
+.btn-danger:after{
+    content: "";
+    background: #b1deb4;
+}
+
+.btn-warning{
+    background: #FC6838;
+    color: white;
+}
+
+.btn-warning:after{
+    content: "";
+    background: #fd9a79;
+}
+
+select option[disabled] {
+    display: none;
+}
+
+.cardButton.buscador{
+    border: none;
+    background:none;
+    color: black;
+}
+
 .card{
     margin: 1em;
     width:22.5%;
     border:2px solid gainsboro;
     text-align: center;
-    height:18vw;
+    height:15vw;
     float:left;
+    opacity: 1;
+    transition: width 1s, opacity 0.5s;
+}
+
+.card.closing{
+    opacity: 0;
+    width: 0;
+    margin: 0;
+}
+
+.card .close{
+    float:right;
+    padding: 0.25em 0.5em 0.25em;
+    cursor: pointer;
+    margin-top:-1px;
+    border: 1px solid black;
+    background: red;
+    color:white;
+}
+
+.card .close:hover{
+    text-shadow: -0.08ex 0 white, 0.08ex 0 white;
+
 }
 
 .card-header {
@@ -292,13 +396,13 @@ a{
 }
 
 .card-content{
-    height:12vw;
+    height:9vw;
     display:flex;
     text-align: left;
 }
 
 .card-content img{
-    height:11em;
+    height:8em;
     width:45%;
     object-fit: contain;
     margin-left: 1em;
@@ -332,5 +436,9 @@ a{
 .card-footer a:hover{
     color:blue;
     font-weight: bold;
+}
+
+[v-cloak]{
+    display:none;
 }
 
