@@ -1,0 +1,444 @@
+main{
+    display: grid;
+    height: 100vh;
+    grid-gap: 10px;
+    font-family: sans-serif;
+    grid-template-areas:
+        "header"
+        "article"
+        "aside"
+        "footer";
+}
+
+@media(min-width: 500px){
+    main{
+        grid-template-areas:
+        "header header"
+        "aside article"
+        "aside footer";
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: 50px 6fr 1fr;
+        transition: all 1s linear;
+    }
+    
+    main.minified{
+        grid-template-areas:
+        "header header"
+        "aside article"
+        "aside footer";
+        grid-template-columns: 75px 8fr;
+        grid-template-rows: 50px 4fr 1fr;
+    }
+}
+
+main > *{
+    justify-content: center;
+    border: solid gainsboro 0.5px;
+}
+
+header{
+    grid-area: header;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-areas:
+        "logo blanco auth";
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+header > *{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+aside{
+    grid-area: aside;
+    display: block;
+    background-color: MidnightBlue;
+    color: white;
+}
+article{
+    display: block;
+    grid-area: article;
+    padding: 1em;
+    overflow-y: scroll;
+}
+footer{
+    grid-area: footer;
+}
+
+.logo{
+    grid-area: logo;
+}
+
+.blank{
+    grid-area: blanco
+}
+
+
+.auth{
+    grid-area: auth;
+    display: grid;
+    grid-template-areas:
+        "login register";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.auth > *{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    grid-area: login;
+}
+
+.register{
+    grid-area: register;
+}
+
+img{
+    height: 4vh;
+    width: auto;
+    margin: 5px;
+}
+
+/*  Menú Lateral    */
+.menuLateral{
+    display: block;
+    padding:0;
+    padding-top: 1em;
+    transition: all 1s linear;
+}
+
+.menuLateral > .elementoMenu > .tituloMenu:hover{
+    background-color: cornflowerblue;
+}
+
+.elementoMenu.nivel2{
+    padding-left:1em;
+}
+
+.elementoMenu.nivel3{
+    padding-left:1em;
+}
+
+.menuLateral:hover{
+    cursor: pointer;
+}
+
+.divMenu{
+    display: inline-block;
+    width:100%;
+    display: none;
+}
+
+.divMenu.active{
+    display:inline-block;
+}
+
+.divMenu .tituloMenu:hover{
+    font-weight: bolder;
+}
+
+.menuLateral > .elementoMenu > .tituloMenu{
+    font-weight: bold;    
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+
+.tituloMenu{
+    padding-top:10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    padding-left: 1em;
+}
+/* 
+.menuLateral > .elementoMenu > .tituloMenu > i:first-child{
+    margin-right: 5px;
+} */
+
+.tituloMenu > i:nth-child(2){
+    float: right;
+    margin-right: 3em;
+}
+
+
+.menuLateral.minified{
+    padding: 0;
+    padding-top: 1em;
+}
+
+.menuLateral.minified > .elementoMenu{
+    height:0;
+    opacity: 0;
+}
+
+.menuLateral > .elementoMenu{
+    display:block;
+    max-height:45px;
+}
+
+.menuLateral > .elementoMenu.active{
+    max-height:none;
+    height:auto;
+}
+
+
+
+.collapse{
+    display: none!important;
+}
+
+.minificator{
+    margin-bottom: 30px;
+}
+
+.menuLateral.minified .minificator{
+    padding:0;
+    text-align:center;
+}
+
+
+
+
+.menuLateral .minificator:hover{
+    background-color: MidnightBlue;
+    max-width: 100%;
+}
+
+.menuLateral .minificator{
+    padding-left: 1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  padding-left:1em;
+  padding-right: 1em;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.divMenu{
+    max-height:0;
+    transition: all 0.3s ease-out;
+}
+
+.divMenu.active{
+    height:auto;
+    max-height:200px;
+}
+
+/* Cartas */
+
+
+.btn{
+    display: inline-block;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    width:6em;
+    height:3em;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    border:1px solid black;
+}
+
+.btn:after{
+    content: "";
+    max-width:25em;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    border-radius: 1em;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.btn:active:after {
+    border-radius: 1em;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    max-width:25em;
+    transition: 0s
+}
+
+.btnText{
+    margin-top: 1em;
+}
+
+.btn-ok{
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-ok:after{
+    content: "";
+    background: #b1deb4;
+}
+
+.btn-danger{
+    background: #e94343;
+    color: white;
+}
+
+.btn-danger:after{
+    content: "";
+    background: #b1deb4;
+}
+
+.btn-warning{
+    background: #FC6838;
+    color: white;
+}
+
+.btn-warning:after{
+    content: "";
+    background: #fd9a79;
+}
+
+select option[disabled] {
+    display: none;
+}
+
+.cardButton.buscador{
+    border: none;
+    background:none;
+    color: black;
+}
+
+.card{
+    margin: 1em;
+    width:22.5%;
+    border:2px solid gainsboro;
+    text-align: center;
+    height:15vw;
+    float:left;
+    opacity: 1;
+    transition: width 1s, opacity 0.5s;
+}
+
+.card.closing{
+    opacity: 0;
+    width: 0;
+    margin: 0;
+}
+
+.card .close{
+    float:right;
+    padding: 0.25em 0.5em 0.25em;
+    cursor: pointer;
+    margin-top:-1px;
+    border: 1px solid black;
+    background: red;
+    color:white;
+}
+
+.card .close:hover{
+    text-shadow: -0.08ex 0 white, 0.08ex 0 white;
+
+}
+
+.card-header {
+    border-bottom: 2px solid gainsboro;
+    height:3vw;
+}
+
+.card-header .title{
+    display:block;
+    font-weight: bold;
+    height:100%;
+    padding-top: 1.2em;
+}
+
+.card-content{
+    height:9vw;
+    display:flex;
+    text-align: left;
+}
+
+.card-content img{
+    height:8em;
+    width:45%;
+    object-fit: contain;
+    margin-left: 1em;
+    margin-top: 1.5em;
+    border: 1px solid black;
+}
+
+.card-content ul{
+    margin-top:1.2em;
+}
+
+.card-content ul li{
+    margin-top: 0.5em;
+}
+
+.card-footer {
+    display: flex;
+    border-top: 2px solid gainsboro;
+    height:3vw;
+    align-items: center;
+    padding-left: 1em;
+}
+
+.card-footer a{
+    display: flex;
+    height:100%;
+    color: black;
+    align-items: center;
+}
+
+.card-footer a:hover{
+    color:blue;
+    font-weight: bold;
+}
+
+[v-cloak]{
+    display:none;
+}
+

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!-- HTML5 Hello world by kirupa - http://www.kirupa.com/html5/getting_your_feet_wet_html5_pg1.htm -->
+<html lang="en-us">
+
+<head>
+	<meta charset="utf-8">	<title>JWTest</title>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/all.min.css">
+	<script type="text/javascript" src="js/vue.js"></script>
+
+</head>
+
+<body>
+
+
+	<main>
+		<header>
+			<div class="logo">
+				<img src="https://vuejs.org/images/logo.png" />
+				<div>Vue App Test</div>
+			</div>
+			<div class="blank">
+				No hay un genio tan genial
+			</div>
+			<div class="auth">
+				<div class="login">Login</div>
+				<div class="register">Registro</div>
+			</div>
+
+		</header>
+		<aside>
+			<div class="menuLateral">
+				<div class="minificator">
+					<div class="tooltip collapse">
+						<span class="tooltiptext">Open menu</span>
+						<i id="iconoMenuMinificado" tooltip="Open Menu" class="fas fa-bars"></i>
+					</div>
+					<div id="minificadorTexto" class="tooltip">
+						<span class="tooltiptext">Hide menu</span>
+						<i class="fas fa-bars"></i> Menú
+					</div>
+				</div>
+				<div class="elementoMenu nivel1">
+					<div class="tituloMenu"><i class="fas fa-book fa-fw"></i> Blog <i class="fas fa-caret-right"></i></div>
+					<div class="divMenu">
+						<div class="elementoMenu nivel2">
+							<div class="tituloMenu"><i class="fas fa-dot-circle"></i> SubMenu 1.1</div>
+						</div>
+					</div>
+				</div>
+				<div class="elementoMenu nivel1">
+					<div class="tituloMenu"><i class="fas fa-cogs fa-fw"></i> Config <i class="fas fa-caret-right"></i></div>
+					<div class="divMenu">
+						<div class="elementoMenu nivel2">
+							<div class="tituloMenu"><i class="fas fa-dot-circle"></i> SubMenu 2.1</div>
+						</div>
+						<div class="elementoMenu nivel2">
+							<div class="tituloMenu"><i class="fas fa-dot-circle"></i> SubMenu 2.2 <i class="fas fa-caret-right"></i></div>
+							<div class="divMenu">
+								<div class="elementoMenu nivel3">
+									<div class="tituloMenu"><i class="fas fa-dot-circle"></i> SubMenu 2.2.1</div>
+								</div>
+								<div class="elementoMenu nivel3">
+									<div class="tituloMenu"><i class="fas fa-dot-circle"></i> SubMenu 2.2.2</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="elementoMenu nivel1">
+					<div class="tituloMenu"><i class="fas fa-laptop-code fa-fw"></i> App <i class="fas fa-caret-right"></i></div>
+					<div class="divMenu">
+						<div class="elementoMenu nivel2">
+							<div class="tituloMenu"><i class="fas fa-dot-circle"></i> SubMenu 3.1</div>
+						</div>
+						<div class="elementoMenu nivel2">
+							<div class="tituloMenu"><i class="fas fa-dot-circle"></i> SubMenu 3.2</div>
+						</div>
+						<div class="elementoMenu nivel2">
+							<div class="tituloMenu"><i class="fas fa-dot-circle"></i> 
+								<a href="http://www.youtube.com">YouTube</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="elementoMenu nivel1">
+					<div class="tituloMenu"><i class="fas fa-address-book fa-fw"></i> Contacto</div>
+					<div class="divMenu">
+					</div>
+				</div>
+			</div>
+		</aside>
+		<article>
+			<div class="cardButtons">
+				<div class="btn btn-ok" id="restore" @click="restaurar">
+					<div class="btnText">
+						Restaurar
+					</div>
+				</div>
+				<div class="wololo">
+					<select id="cargoFiltro" v-model="cargoFiltro">
+						<option selected="selected" value="" disabled="disabled">
+							Selecciona...
+						</option>
+						<option v-for="cargo in cargos" :value="cargo.value">
+							{{cargo.text}}
+						</option>
+					</select>
+				</div>
+				<div class="buscador">
+					Filtro Nombre Completo:
+					<input id="buscador" type="text" placeholder="Buscar..." v-model="buscador">
+				</div>
+			</div>
+			<div id="cardsList">
+				<div class="card" v-for="hermano in hermanosFiltro" v-cloak>
+					<div class="close">x</div>
+					<div class="card-header">
+						<div class="title">
+							{{hermano.nombreCompleto}}
+						</div>			
+					</div>
+					<div class="card-content">
+						<img :src="hermano.imagen"/>
+						<ul class="card-details">
+							<li>
+								<div class="tooltip">
+									Sexo
+									<span class="tooltiptext">{{hermano.sexo}}</span>
+								</div>
+							</li>
+							<li>
+								<div class="tooltip">
+									Dirección
+									<span class="tooltiptext">
+										{{hermano.direccion}}
+									</span>
+								</div>
+							</li>
+							<li>
+								<div class="tooltip">
+									Teléfono
+									<span class="tooltiptext">
+										{{hermano.telefono}}
+									</span>
+								</div>
+							</li>
+							<li>
+								<div class="tooltip">
+									Email
+									<span class="tooltiptext">
+										{{hermano.email}}
+									</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="card-footer">
+							<a href="#"><i class="fa fa-home"></i> Accion 1</a>
+					</div>
+				</div>
+			</div>
+			
+		</article>		
+		<footer>Footer</footer>
+	</main>
+
+</body>
+
+</html>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  	var firebaseConfig = {
+    	apiKey: "AIzaSyDieeKp6IQzP2d0WN133eazRozQ97CddIg",
+    	authDomain: "jwtest-c7136.firebaseapp.com",
+    	databaseURL: "https://jwtest-c7136.firebaseio.com",
+    	projectId: "jwtest-c7136",
+    	storageBucket: "jwtest-c7136.appspot.com",
+    	messagingSenderId: "560031423361",
+    	appId: "1:560031423361:web:ae191488d09024d6"
+  	};
+  	// Initialize Firebase
+	var firebase = firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+	//Codigo VUE.js
+	const noIa = "No indicada";
+	const noIo = "No indicado";
+	const sD = "Sin definir";
+	const imagenDef = "http://www.hemisferiodigital.es/wp-content/uploads/lorem-ipsum-dolor.png";
+	new Vue({
+		el: 'article',
+		mounted(){
+			let db = firebase.database();
+			let arrayHermanos = new Array();
+			db.ref('/hermanos')
+				.once('value')
+				.then((snapshot) =>{
+					Object.entries(snapshot.val()).map(function(key, index){
+						var itemFB = key[1];
+						var hermano = {
+							nombre: isNull(itemFB.nombre,""),
+							segundoNombre: isNull(itemFB.segundoNombre,""),
+							apellido1: isNull(itemFB.apellido1,""),
+							apellido2: isNull(itemFB.apellido2,""),
+							sexo: isNull(itemFB.sexo, sD),
+							edad: isNull(itemFB.edad, noIa),
+							telefono: isNull(itemFB.telefono, noIo),
+							direccion: isNull(itemFB.direccion, noIa),
+							email: isNull(itemFB.email, noIo),
+							imagen: isNull(itemFB.imagen, imagenDef),
+							cargo: isNull(itemFB.cargo, "Publicador")
+						};
+						hermano.nombreCompleto = [hermano.nombre,hermano.segundoNombre,hermano.apellido1, hermano.apellido2].join(" ").replace("  ", " ");
+						arrayHermanos.push(hermano);
+					})
+				});
+			this.hermanos = arrayHermanos;
+		},
+		data:{
+			hermanos:[],
+			cargos:[
+				{
+					"text":"Anciano",
+					"value": "Anciano"
+				},
+				{
+					"text":"Siervo Ministerial",
+					"value": "Siervo Ministerial"
+				},
+				{
+					"text":"Publicador",
+					"value": "Publicador"
+				}
+			],
+			cargoFiltro: "",
+			tipoPredicaciones: ["Precursor Regular", "Precursor Especial", "Publicador"],
+			tipoPredicacionFiltro: "",
+			buscador: "",
+		},
+		computed:{
+			hermanosFiltro(){				
+				return this.hermanos.filter(hermano =>{
+					let nombre = sinAcentos(hermano.nombreCompleto).toUpperCase();
+					let buscador = sinAcentos(this.buscador).toUpperCase();
+					let filtroCargo = this.cargoFiltro != "" ? hermano.cargo == this.cargoFiltro : true;
+					return nombre.includes(buscador) && filtroCargo;
+				})
+			}
+		},
+		methods:{
+			restaurar: function(){
+				this.cargoFiltro = "";
+				this.buscador = "";
+			}
+		}
+	});
+
+	let mapaAcentos = {
+		'á':'a', 
+		'é': 'e', 
+		'í': 'i',
+		'ó': 'o',
+		'ú': 'u'
+	};
+
+	function sinAcentos(t){
+		if(!t){
+			return '';
+		}
+
+		var ret = '';
+		for(var i = 0; i < t.length; i++){
+			ret += mapaAcentos[t.charAt(i)] || t.charAt(i);
+		}
+		return ret;
+	}
+
+	function isNull(value, alternative){
+		return value == null ? alternative : value;
+	}
+	
+</script>
+<script>
+    let db = firebase.database();
+	let secciones = document.querySelectorAll('.elementoMenu');
+	let minificadorMenu = document.querySelector('.minificator');
+	let menu = document.querySelector('.menuLateral');
+	let main = document.querySelector('main');
+	let minificadorTexto = document.querySelector('#minificadorTexto');
+	let iconoMenuMinificado = document.querySelector('.tooltip');
+	let cardsList = document.querySelector("#cardsList");
+	let restaurar = document.querySelector('#restore');
+
+	secciones.forEach(function(seccion) {
+		var divMenu = seccion.querySelector('.divMenu');
+		var iconoTituloPadre = seccion.querySelector('.tituloMenu i:nth-child(2)');
+		seccion.onclick = function(e) {
+			e.stopPropagation();
+			// Desactivar previos
+					
+			seccion.classList.toggle('active');
+			if(divMenu){
+				divMenu.classList.toggle('active');
+			}
+			if(iconoTituloPadre){
+				iconoTituloPadre.classList.toggle('fa-caret-down');
+				iconoTituloPadre.classList.toggle('fa-caret-right');	
+			}
+			
+		};
+	});
+
+	minificadorMenu.onclick = function() {
+		minificadorTexto.classList.toggle('collapse');
+		iconoMenuMinificado.classList.toggle('collapse');
+		menu.classList.toggle('minified');
+		main.classList.toggle('minified');
+	};
+
+	cardsList.addEventListener('click', function(e){
+		debugger;
+		if(e.target && e.target.classList.contains('close')){
+			e.target.closest('.card').classList.toggle('closing');
+		}
+	});
+	
+
+	restore.onclick = function(){
+		let closedCards = document.querySelectorAll('.closing');
+		closedCards.forEach(function(closedCard){
+			closedCard.classList.toggle('closing');
+		});		
+	}
+	
+	db.ref('/hermanos').on('value', function(snapshot) {
+        console.log(snapshot.val());
+    });
+</script>
+
