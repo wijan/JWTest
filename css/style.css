@@ -63,6 +63,8 @@ article{
     grid-area: article;
     padding: 1em;
     overflow-y: scroll;
+    opacity: 1;
+    transition: all 0.5s;
 }
 footer{
     grid-area: footer;
@@ -361,8 +363,67 @@ select option[disabled] {
     margin-right:1em;
 }
 
+.anciano{
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.siervoMinisterial{
+    background-color: seagreen;
+    color: white;
+}
+
+.publicador{
+    background-color: chocolate;
+    color: white;
+}
+
+.publicadorNoBautizado{
+    background-color: indianred;
+    color: white;
+}
+
+.estudiante{
+    background-color: mediumpurple;
+    color: white;
+}
+
+.title .badges{
+    float: left;
+    margin-left:0.5em;
+}
+
+.fas.anciano{
+    color: cornflowerblue;
+    background-color: white;
+}
+
+.fas.siervoMinisterial{
+    color: seagreen;
+    background-color: white;
+}
+
+.fas.publicador{
+    color: chocolate;
+    background-color: white;
+}
+
+.fas.publicadorNoBautizado{
+    color: indianred;
+    background-color: white;
+}
+
+.fas.estudiante{
+    color: mediumpurple;
+    background-color: white;
+}
+
 .toggle label{
     padding-right:1em;
+}
+
+.buscador{
+    display: inline-block;
 }
 
 .cardButton.buscador{
@@ -371,12 +432,16 @@ select option[disabled] {
     color: black;
 }
 
+#cardList{
+    padding-left:1em;
+}
+
 .card{
     margin: 1em;
-    width:22.5%;
+    width:16%;
     border:2px solid gainsboro;
     text-align: center;
-    height:15vw;
+    height:16vw;
     float:left;
     opacity: 1;
     transition: width 1s, opacity 0.5s;
@@ -408,6 +473,13 @@ select option[disabled] {
     height:3vw;
 }
 
+.badge{
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    display: inline-block;
+}
+
 .card-header .title{
     display:block;
     font-weight: bold;
@@ -416,13 +488,13 @@ select option[disabled] {
 }
 
 .card-content{
-    height:9vw;
+    height:10vw;
     display:flex;
     text-align: left;
 }
 
 .card-content img{
-    height:8em;
+    height:9em;
     width:45%;
     object-fit: contain;
     margin-left: 1em;
@@ -459,6 +531,6 @@ select option[disabled] {
 }
 
 [v-cloak]{
-    display:none;
+    display: none;
 }
 

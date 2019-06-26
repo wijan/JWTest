@@ -91,39 +91,36 @@
 				</div>
 			</div>
 		</aside>
-		<article>
+		<article v-cloak>
 			<div class="cardButtons">
-				<div class="btn btn-ok" id="restore" @click="restaurar">
-					<div class="btnText">
-						Restaurar
-					</div>
-				</div>
+				
 				<div class="toggles">
-					<div class="toggle" v-for="cargo in cargos" @click="filtroToggle(cargo.value)">
+					<div class="toggle" :class="cargo.cargoCamel" v-for="cargo in cargos" @click="filtroToggle(cargo.value)">
 						<i :id="cargo.idIcono" class="far fa-square"></i>
 						<span>{{cargo.text}}</span>
 					</div>
-				</div>
-				<div class="wololo">
-					<select id="cargoFiltro" v-model="cargoFiltro" multiple>
-						<option selected="selected" value="" disabled="disabled">
-							Selecciona...
-						</option>
-						<option v-for="cargo in cargos" :value="cargo.value">
-							{{cargo.text}}
-						</option>
-					</select>
 				</div>
 				<div class="buscador">
 					Filtro Nombre Completo:
 					<input id="buscador" type="text" placeholder="Buscar..." v-model="buscador">
 				</div>
+				<div class="btn btn-ok" id="restore" @click="restaurar">
+					<div class="btnText">
+						Restaurar
+					</div>
+				</div>
 			</div>
-			<div id="cardsList">
-				<div class="card" v-for="hermano in hermanosFiltro" v-cloak>
+			<div id="cardList">
+				<div class="card" v-for="hermano in hermanosFiltro">
 					<div class="close">x</div>
 					<div class="card-header">
 						<div class="title">
+							<div class="badges">
+								<div class="tooltip">
+									<i class="fas fa-bookmark" :class="obtenerCargoCamel(hermano.cargo)"></i>
+									<span class="tooltiptext">{{obtenerCargo(hermano.cargo)}}</span>
+								</div>
+							</div>
 							{{hermano.nombreCompleto}}
 						</div>			
 					</div>
@@ -202,10 +199,10 @@
 	const noIa = "No indicada";
 	const noIo = "No indicado";
 	const sD = "Sin definir";
-	const imagenDef = "http://www.hemisferiodigital.es/wp-content/uploads/lorem-ipsum-dolor.png";
+	const imagenDef = "loremipsum.png";
 	new Vue({
 		el: 'article',
-		mounted(){
+		created(){
 			let db = firebase.database();
 			let arrayHermanos = new Array();
 			db.ref('/hermanos')
@@ -223,8 +220,8 @@
 							telefono: isNull(itemFB.telefono, noIo),
 							direccion: isNull(itemFB.direccion, noIa),
 							email: isNull(itemFB.email, noIo),
-							imagen: isNull(itemFB.imagen, imagenDef),
-							cargos: isNull(itemFB.cargos, [3])
+							imagen: '/images/' + isNull(itemFB.imagen, imagenDef),
+							cargo: isNull(itemFB.cargo, 3)
 						};
 						hermano.nombreCompleto = [hermano.nombre,hermano.segundoNombre,hermano.apellido1, hermano.apellido2].join(" ").replace("  ", " ");
 						arrayHermanos.push(hermano);
@@ -238,7 +235,8 @@
 						let cargo = {
 							value: parseInt(key[0]),
 							text: key[1] ,
-							idIcono: 'iconoFiltro' + key[0].toString()
+							idIcono: 'iconoFiltro' + key[0].toString(),
+							cargoCamel: camelizar(key[1]),
 						};
 						arrayCargos.push(cargo);
 					})
@@ -259,7 +257,7 @@
 				return this.hermanos.filter(hermano =>{
 					let nombre = sinAcentos(hermano.nombreCompleto).toUpperCase();
 					let buscador = sinAcentos(this.buscador).toUpperCase();
-					let filtroCargo = !(this.cargoFiltro.length == 1 && this.cargoFiltro[0] == "") ? hermano.cargos.some(r => this.cargoFiltro.indexOf(r) >= 0) : true;
+					let filtroCargo = !(this.cargoFiltro.length == 1 && this.cargoFiltro[0] == "") ? this.cargoFiltro.indexOf(hermano.cargo) !== -1 : true;
 					
 					return nombre.includes(buscador) && filtroCargo;
 				})
@@ -269,9 +267,13 @@
 			restaurar: function(){
 				this.cargoFiltro = [""];
 				this.buscador = "";
+				let iconosFiltros = document.querySelectorAll('.fa-check-square');
+				iconosFiltros.forEach(function(e){
+					e.classList.toggle('fa-square');
+					e.classList.toggle('fa-check-square');
+				})
 			},
-			filtroToggle(valorCargo){
-				debugger;
+			filtroToggle: function(valorCargo){
 				let posicionCargo = this.cargoFiltro.indexOf(valorCargo);
 				let iconoFiltro = document.querySelector('#iconoFiltro' + valorCargo.toString());
 				iconoFiltro.classList.toggle('fa-square');
@@ -282,6 +284,14 @@
 				else{
 					this.cargoFiltro.push(valorCargo);
 				}
+			},
+			obtenerCargoCamel: function(cargo){
+				let cargoItem = this.cargos.find(c => c.value == cargo);
+				return cargoItem ? cargoItem.cargoCamel : '';
+			},
+			obtenerCargo: function(cargo){
+				let cargoItem = this.cargos.find(c => c.value == cargo);
+				return cargoItem ? cargoItem.text : '';
 			}
 		}
 	});
@@ -293,6 +303,13 @@
 		'ó': 'o',
 		'ú': 'u'
 	};
+
+	function camelizar(str) {
+		return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+			if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+			return index == 0 ? match.toLowerCase() : match.toUpperCase();
+		});
+	}
 
 	function sinAcentos(t){
 		if(!t){
@@ -319,7 +336,7 @@
 	let main = document.querySelector('main');
 	let minificadorTexto = document.querySelector('#minificadorTexto');
 	let iconoMenuMinificado = document.querySelector('.tooltip');
-	let cardsList = document.querySelector("#cardsList");
+	let cardList = document.querySelector("#cardList");
 	let restaurar = document.querySelector('#restore');
 
 	secciones.forEach(function(seccion) {
@@ -348,7 +365,7 @@
 		main.classList.toggle('minified');
 	};
 
-	cardsList.addEventListener('click', function(e){
+	cardList.addEventListener('click', function(e){
 		if(e.target && e.target.classList.contains('close')){
 			e.target.closest('.card').classList.toggle('closing');
 		}
